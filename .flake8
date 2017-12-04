@@ -1,0 +1,31 @@
+# http://flake8.pycqa.org/en/latest/user/configuration.html
+# http://flake8.pycqa.org/en/latest/user/options.html
+# http://pep8.readthedocs.io/en/latest/intro.html#error-codes
+
+[flake8]
+ignore = E111,E114,E121,E201,E202,E261,E265,E701,W391
+# E111 indentation is not a multiple of four
+# E114 indentation is not a multiple of four (comment)
+# E121 continuation line under-indented for hanging indent
+# E201 whitespace after '{'
+# E202 whitespace before '}'
+# E261 at least two spaces before inline comment
+# E265 block comment should start with '# '
+# E701 multiple statements on one line (colon)
+# W391 blank line at end of file
+## E124 closing bracket does not match visual indentation
+max_line_length = 160
+#exclude = .git
+max_complexity = 20
+
+# exclude files that are out of compliance. This way only new files are opted in.
+exclude = 
+  roles/thoughtworks_go_local/files/,
+  roles/logstash/files/,
+  roles/logstash2/files/,
+  roles/defunctzombie.coreos-bootstrap/files/get-pip.py,
+  roles/common/files/,
+  roles/ssh_automated_testing/files/ssh.py,
+  library/,
+  files/,
+  inventory/ec2.py
