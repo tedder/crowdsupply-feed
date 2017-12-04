@@ -33,6 +33,7 @@ def parse_tile(tile):
   overview_text = []
   for opara in overview.xpath("p"):
     overview_text.append(opara.text)
+  overview_text.append('<img src="{}" border=0>'.format(ret['image']))
   ret['content_html'] = "<br>\n".join(overview_text)
 
   return ret
@@ -40,7 +41,8 @@ def parse_tile(tile):
 
 r = requests.get(BROWSE_URL)
 browse_text = r.text
-print("site size: {}".format(len(browse_text)))
+if len(browse_text) < 10000: # currently around 41k bytes
+  raise Exception("page was much smaller than expected, got {} bytes. url: {}".format(len(browse_text), BROWSE_URL))
 tree = lxml.html.fromstring(browse_text)
 
 browse_container = tree.xpath("//section[contains(@class, 'section-browse')]//a[contains(@class, 'project-tile')]")
