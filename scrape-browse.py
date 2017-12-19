@@ -48,7 +48,7 @@ tree = lxml.html.fromstring(browse_text)
 browse_container = tree.xpath("//section[contains(@class, 'section-browse')]//a[contains(@class, 'project-tile')]")
 
 jfeed = {
-  'version': 1,
+  'version': 'https://jsonfeed.org/version/1',
   'title': 'Crowd Supply projects',
   'home_page_url': BROWSE_URL,
   'description': 'Projects scraped from the crowdsupply browse page',
