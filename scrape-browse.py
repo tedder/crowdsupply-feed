@@ -15,6 +15,7 @@ BROWSE_URL = SITE_URL + '/browse'
 S3_KEY = 'rss/crowdsupply-browse.json'
 FEED_URL = 'https://dyn.tedder.me/' + S3_KEY
 
+print("hello start")
 
 def get_only_one(item):
   if len(item) != 1:
@@ -40,12 +41,15 @@ def parse_tile(tile):
 
 
 r = requests.get(BROWSE_URL)
+print("got page")
 browse_text = r.text
 if len(browse_text) < 10000: # currently around 41k bytes
   raise Exception("page was much smaller than expected, got {} bytes. url: {}".format(len(browse_text), BROWSE_URL))
 tree = lxml.html.fromstring(browse_text)
 
 browse_container = tree.xpath("//section[contains(@class, 'section-browse')]//a[contains(@class, 'project-tile')]")
+
+print("building feed")
 
 jfeed = {
   'version': 'https://jsonfeed.org/version/1',
@@ -73,5 +77,6 @@ s3.put_object(
   CacheControl='public, max-age=300' # todo: 3600
 )
 
+print(f"posted to s3://dyn.tedder.me/{S3_KEY}")
 
 
